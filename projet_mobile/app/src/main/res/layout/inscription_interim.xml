@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/inscription_interim">
+
+
+    <!-- Icône de retour -->
+    <ImageView
+        android:id="@+id/imageViewBack"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:src="@drawable/retour_arriere"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:clickable="true" />
+
+
+    <!-- Titre -->
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Inscription"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:layout_alignTop="@id/imageViewBack"
+        android:layout_marginTop="16dp" />
+
+
+    <TextView
+        android:id="@+id/textViewRechercheInterim"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Recherche intérim"
+        android:layout_below="@id/textViewTitle"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp" />
+
+
+
+    <Button
+        android:id="@+id/buttonEmploye"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Employé"
+        android:layout_below="@id/textViewRechercheInterim"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp" />
+
+
+    <!-- Champ pour le nom -->
+    <EditText
+        android:id="@+id/editTextNom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nom"
+        android:layout_below="@id/textViewTitle"
+        android:layout_marginTop="180dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"/>
+
+
+
+    <!-- Champ pour le prénom -->
+    <EditText
+        android:id="@+id/editTextPrenom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Prénom"
+        android:layout_below="@id/editTextNom"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"/>
+
+
+
+
+    <!-- Champ pour l'email -->
+    <EditText
+        android:id="@+id/editTextEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:layout_below="@id/editTextPrenom"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"/>
+
+    <!-- Champ pour la date de naissance -->
+    <EditText
+        android:id="@+id/editTextDateNaissance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Date de naissance"
+        android:layout_below="@id/editTextEmail"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"/>
+
+    <!-- Bouton de connexion -->
+    <Button
+        android:id="@+id/button_creer_compte"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="creer mon compte"
+        android:layout_below="@id/editTextDateNaissance"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+       />
+
+
+
+</RelativeLayout>
+
+
+

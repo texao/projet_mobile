@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Projet_mobile"
+        tools:targetApi="31"
+        android:enableOnBackInvokedCallback="true">>
+        <activity
+            android:name=".page_principal"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Page_Accueil"
+            android:exported="true"/>
+        <activity
+            android:name=".candidat.connexion"
+            android:exported="true"/>
+        <activity
+            android:name=".candidat.inscription"
+            android:exported="true"/>
+        <activity
+            android:name=".employe.inscription_employe"
+            android:exported="true"/>
+        <activity
+            android:name=".candidat.EspaceConnecte"
+            android:exported="true"/>
+        <activity
+            android:name=".candidat.FormulaireCandidatureActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".candidat.AfficherCandidaturesActivity"
+            android:exported="true"/>
+
+
+
+
+
+</application>
+
+
+
+
+</manifest>

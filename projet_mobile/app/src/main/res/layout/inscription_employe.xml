@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/inscription_employe">
+
+
+    <!-- Icône de retour -->
+    <ImageView
+        android:id="@+id/imageViewBack"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:src="@drawable/retour_arriere"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:clickable="true" />
+
+
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Inscription"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:layout_alignTop="@id/imageViewBack"
+        android:layout_marginTop="16dp" />
+
+
+    <TextView
+        android:id="@+id/textViewRechercheInterim"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Employe"
+        android:layout_below="@id/textViewTitle"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp" />
+
+
+    <EditText
+        android:id="@+id/nomEntreprise"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nom Entreprise"
+        android:layout_marginTop="150dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"/>
+
+
+
+    <EditText
+        android:id="@+id/adresseMail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Adresse Mail"
+        android:layout_below="@id/nomEntreprise"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"/>
+
+
+
+
+    <EditText
+        android:id="@+id/numTelephone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Numero Telephone"
+        android:layout_below="@id/adresseMail"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"/>
+
+    <EditText
+        android:id="@+id/adresse"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Adresse"
+        android:layout_below="@id/numTelephone"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"/>
+
+
+    <EditText
+        android:id="@+id/lienPublic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Lien Public"
+        android:layout_below="@id/adresse"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"/>
+
+
+
+    <!-- Bouton de connexion -->
+    <Button
+        android:id="@+id/button_employe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="creer mon compte"
+        android:layout_below="@id/lienPublic"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        />
+
+
+
+</RelativeLayout>
+
+
+

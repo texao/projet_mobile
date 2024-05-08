@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="8dp"
+    android:orientation="vertical">
+
+
+    <!-- Titre "Accueil" -->
+    <TextView
+        android:id="@+id/textViewoffre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Candidature"
+        android:textSize="24sp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="32dp"
+        />
+
+
+    <EditText
+        android:id="@+id/editTextMetier"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Saisir un métier"
+        android:inputType="text"
+        android:layout_marginTop="16dp"
+        android:layout_marginHorizontal="16dp"/>
+
+    <EditText
+        android:id="@+id/editTextdate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Saisir une date"
+        android:inputType="text"
+        android:layout_marginTop="16dp"
+        android:layout_marginHorizontal="16dp"/>
+
+
+    <Button
+        android:id="@+id/btnFiltrerMetier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Filtrer par Métier" />
+
+
+
+    <ListView
+        android:id="@+id/listViewcandidature"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="40dp"/>
+
+
+</LinearLayout>

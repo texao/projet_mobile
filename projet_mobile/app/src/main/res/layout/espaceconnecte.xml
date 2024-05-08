@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="8dp"
+    android:orientation="vertical">
+
+
+    <!-- Titre "Accueil" -->
+    <TextView
+        android:id="@+id/textViewoffre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Offres"
+        android:textSize="24sp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="32dp"
+        />
+
+
+    <Button
+        android:id="@+id/buttonAfficherCandidatures"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewoffre"
+        android:layout_gravity="center_horizontal"
+        android:text="Afficher les candidatures" />
+
+
+    <ListView
+        android:id="@+id/listViewOffre"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="40dp"/>
+
+
+</LinearLayout>
