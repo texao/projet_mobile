@@ -1,5 +1,5 @@
 # projet_mobile
-Le projet mobile "Gestion des Intérims" est une application développée pour faciliter la gestion des employés intérimaires au sein d'une entreprise. Cette application permet aux utilisateurs de consulter et de postuler à des offres d'emploi, de gérer leurs profils et de suivre l'état de leurs candidatures. Les employeurs peuvent également publier des offres d'emploi et gérer les candidatures reçues.
+ Application développée pour faciliter la gestion des employés intérimaires au sein d'une entreprise. Cette application permet aux utilisateurs de consulter et de postuler à des offres d'emploi, de gérer leurs profils et de suivre l'état de leurs candidatures. Les employeurs peuvent également publier des offres d'emploi et gérer les candidatures reçues.
 
 Fonctionnalités
 Pour les candidats
