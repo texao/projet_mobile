@@ -1,18 +1,18 @@
 package com.example.projet_mobile.employe;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.projet_mobile.candidat.EspaceConnecte;
 import com.example.projet_mobile.R;
-import com.example.projet_mobile.candidat.inscription;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -42,10 +42,11 @@ public class connexion_employe extends AppCompatActivity {
     private EditText nom;
     private EditText mail;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.connexion);
+        setContentView(R.layout.connexion_employe);
 
         Log.d("Tag", "page connexion ");
 
@@ -56,12 +57,26 @@ public class connexion_employe extends AppCompatActivity {
 
         Log.d("Tag", "page connexion");
 
+
+        // Récupérer la référence de l'ImageView pour le bouton de retour
+        ImageView imageViewBack = findViewById(R.id.imageViewBack);
+
+        // Ajouter un écouteur de clic à l'ImageView
+        imageViewBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Gérer le clic pour retourner à l'activité précédente
+                onBackPressed();
+            }
+        });
+
+
+
         Button bouton_connexion = findViewById(R.id.buttonConnexion);
         bouton_connexion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Lorsque le bouton de connexion est cliqué, démarrer l'activité de connexion
-                Intent intent = new Intent(connexion_employe.this, inscription.class);
+                Intent intent = new Intent(connexion_employe.this, Employeur.class);
                 startActivity(intent);
 
 
@@ -78,7 +93,6 @@ public class connexion_employe extends AppCompatActivity {
                 String email = mail.getText().toString();
 
                 // Envoyer les informations de connexion au serveur pour vérification
-                // Ici, vous pouvez appeler une méthode comme "authentifierUtilisateur(nom, email)" pour cela
                 authentification_utilisateur(name, email);
             }
         });
@@ -141,7 +155,9 @@ public class connexion_employe extends AppCompatActivity {
                             boolean authentificationReussie = json.getBoolean("success");
                             if (authentificationReussie) {
                                 // Authentification réussie, rediriger vers la page d'accueil
-                                Intent intent = new Intent(connexion_employe.this, EspaceConnecte.class);
+                                Intent intent = new Intent(connexion_employe.this, Employeur.class);
+                                intent.putExtra("nom", nom);
+                                intent.putExtra("email", email);
                                 startActivity(intent);
                             } else {
                                 // Authentification échouée, afficher un message d'erreur
@@ -151,7 +167,6 @@ public class connexion_employe extends AppCompatActivity {
                             e.printStackTrace();
                         }
                     } else {
-                        // Gérer les réponses non réussies
                         Log.e("connexion", "Erreur lors de l'authentification onResponses : " + response.code());
                         afficherMessage("Erreur lors de l'authentification. Veuillez réessayer.");
                     }

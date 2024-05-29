@@ -4,6 +4,8 @@
     android:layout_height="match_parent">
 
 
+
+    <!-- Icône de retour -->
     <ImageView
         android:id="@+id/imageViewBack"
         android:layout_width="32dp"
@@ -15,61 +17,62 @@
         android:layout_marginTop="16dp"
         android:clickable="true" />
 
+
+    <!-- Titre -->
     <TextView
-        android:id="@+id/titre"
+        android:id="@+id/textViewTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Candidature"
+        android:text="Connexion"
         android:textSize="24sp"
         android:textStyle="bold"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="24dp"/>
 
+    <TextView
+        android:id="@+id/employe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Employe"
+        android:layout_below="@id/textViewTitle"
+        android:layout_centerHorizontal="true"
+        android:textSize="20sp"
+        android:layout_marginTop="16dp" />
 
 
+    <!-- Champ pour le nom -->
     <EditText
         android:id="@+id/editTextNom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/titre"
-        android:layout_marginTop="50dp"
-        android:hint="Nom" />
+        android:hint="Nom"
+        android:layout_below="@id/employe"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"/>
 
+
+    <!-- Champ pour l'email -->
     <EditText
-        android:id="@+id/editTextPrenom"
+        android:id="@+id/editTextEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
         android:layout_below="@id/editTextNom"
-        android:hint="Prénom" />
-
-    <EditText
-        android:id="@+id/editTextDateNaissance"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/editTextPrenom"
-        android:hint="Date de naissance" />
-
-    <EditText
-        android:id="@+id/editTextNationalite"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/editTextDateNaissance"
-        android:hint="Nationalité" />
-
-    <EditText
-        android:id="@+id/editTextCV"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/editTextNationalite"
-        android:hint="CV" />
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"/>
 
 
+    <!-- Bouton de connexion -->
     <Button
-        android:id="@+id/buttonEnvoyerCandidature"
+        android:id="@+id/buttonConnexion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/editTextCV"
+        android:text="Connexion"
+        android:layout_below="@id/editTextEmail"
         android:layout_centerHorizontal="true"
-        android:text="Envoyer candidature" />
+        android:layout_marginTop="24dp"/>
 
 </RelativeLayout>

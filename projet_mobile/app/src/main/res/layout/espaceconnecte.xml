@@ -1,37 +1,72 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="8dp"
     android:orientation="vertical">
 
+    <!-- Flèche de retour -->
+    <ImageView
+        android:id="@+id/imageViewBack"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:src="@drawable/retour_arriere"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:clickable="true" />
 
-    <!-- Titre "Accueil" -->
+    <!-- Icône des paramètres -->
+    <ImageView
+        android:id="@+id/imageViewSettings"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:src="@drawable/parametre"
+        android:contentDescription="Paramètres"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp" />
+
+    <!-- Icône d'accueil -->
+    <ImageView
+        android:id="@+id/imageViewAccueil"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:src="@drawable/accueil"
+        android:layout_toEndOf="@id/imageViewBack"
+        android:layout_toStartOf="@id/imageViewSettings"
+        android:layout_marginTop="16dp"
+        android:clickable="true"
+        android:layout_centerHorizontal="true" />
+
+    <!-- Titre "Offres" -->
     <TextView
         android:id="@+id/textViewoffre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Offres"
         android:textSize="24sp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="32dp"
-        />
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/imageViewAccueil"
+        android:layout_marginTop="32dp" />
 
-
+    <!-- Bouton "Afficher les candidatures" -->
     <Button
         android:id="@+id/buttonAfficherCandidatures"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/textViewoffre"
-        android:layout_gravity="center_horizontal"
-        android:text="Afficher les candidatures" />
+        android:layout_centerHorizontal="true"
+        android:text="Afficher les candidatures"
+        android:layout_marginTop="16dp" />
 
-
+    <!-- ListView pour afficher les offres -->
     <ListView
         android:id="@+id/listViewOffre"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="40dp"/>
+        android:layout_below="@id/buttonAfficherCandidatures"
+        android:layout_marginTop="40dp" />
 
-
-</LinearLayout>
+</RelativeLayout>

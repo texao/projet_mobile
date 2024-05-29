@@ -1,7 +1,7 @@
-package com.example.projet_mobile.candidat;
+package com.example.projet_mobile.employe;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,12 +11,14 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.projet_mobile.Page_Accueil;
 import com.example.projet_mobile.R;
+import com.example.projet_mobile.adaptateur.OffreEmploiAdaptateurEmploye;
 import com.example.projet_mobile.adaptateur.OffreEmploiAdapter;
 import com.example.projet_mobile.model.Offre_emploi;
 
+import org.bson.types.ObjectId;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -40,24 +42,28 @@ import javax.net.ssl.X509TrustManager;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.HttpUrl;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
-import org.bson.types.ObjectId;
 
-
-public class EspaceConnecte  extends AppCompatActivity {
+public class ConsulterOffresActivity extends AppCompatActivity {
     private ListView listViewOffre;
-    String nomUtilisateur ;
-    String prenomUtilisateur;
-    String dateNaissanceUtilisateur;
-    String emailUtilisateur;
+    private String nomEntreprise;
 
-    @SuppressLint("MissingInflatedId")
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.espaceconnecte);
+        setContentView(R.layout.consulte_offre);
+
+        // Récupérer le nom de l'entreprise depuis l'Intent
+        nomEntreprise = getIntent().getStringExtra("nomEntreprise");
+
+        Log.d("ConsulterOffresActivity", "nom entreprise " + nomEntreprise);
 
         // Récupérer la référence de l'ImageView pour le bouton de retour
         ImageView imageViewBack = findViewById(R.id.imageViewBack);
@@ -66,41 +72,14 @@ public class EspaceConnecte  extends AppCompatActivity {
         imageViewBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Gérer le clic pour retourner à l'activité précédente
+                // Gérer le clic pour retourner à l'activité précédente (connexion)
                 onBackPressed();
             }
         });
 
 
 
-        ImageView imageViewAccueil = findViewById(R.id.imageViewAccueil);
-        imageViewAccueil.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(EspaceConnecte.this, Page_Accueil.class);
-                startActivity(intent);
-            }
-        });
-
-
-
-
-        // Récupérer les informations d'inscription passées depuis l'activité connexion
-        Intent intent = getIntent();
-
-
-        if (intent != null) {
-            nomUtilisateur = intent.getStringExtra("nomUtilisateur");
-            prenomUtilisateur = intent.getStringExtra("prenomUtilisateur");
-            dateNaissanceUtilisateur = intent.getStringExtra("dateNaissanceUtilisateur");
-            emailUtilisateur = intent.getStringExtra("emailUtilisateur");
-
-        }
-
-
-
-
-        listViewOffre = findViewById(R.id.listViewOffre); // Initialisation de listViewAnnonces
+        listViewOffre = findViewById(R.id.listViewOffre);
         Log.d("Tag", "page offre");
 
         // Ajouter un écouteur d'événements à la ListView
@@ -110,47 +89,26 @@ public class EspaceConnecte  extends AppCompatActivity {
                 // Récupérer l'offre sélectionnée
                 Offre_emploi offreEmploi = (Offre_emploi) parent.getItemAtPosition(position);
 
+
                 String offreId = offreEmploi.getId();
-                Log.d("EspaceConnecte", "EspaceConnecte ID de l'offre extrait avec succès: " + offreId);
+                Log.d("ConsulterOffresActivity", "ConsulterOffresActivity ID de l'offre extrait avec succès: " + offreId);
 
-                // Ouvrir le formulaire de candidature pour cette offre
-                ouvrirFormulaireCandidature(offreEmploi, nomUtilisateur, prenomUtilisateur, dateNaissanceUtilisateur, offreId);
+
             }
         });
 
+        getOffreFromServer(nomEntreprise);
 
-
-        Button buttonAfficherCandidatures = findViewById(R.id.buttonAfficherCandidatures);
-        buttonAfficherCandidatures.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(EspaceConnecte.this, AfficherCandidaturesActivity.class);
-                startActivity(intent);
-            }
-        });
-
-
-        // Ajouter un écouteur de clic à l'image des paramètres
-        ImageView imageViewSettings = findViewById(R.id.imageViewSettings);
-        imageViewSettings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(EspaceConnecte.this, ParametresProfilActivity.class);
-                intent.putExtra("nomUtilisateur", nomUtilisateur);
-                intent.putExtra("prenomUtilisateur", prenomUtilisateur);
-                intent.putExtra("emailUtilisateur", dateNaissanceUtilisateur);
-                startActivity(intent);
-            }
-        });
-
-
-
-        getOffreFromServer();
 
     }
 
 
-    public void getOffreFromServer() {
+
+
+
+    public void getOffreFromServer(String nomEntreprise) {
+
+
 
 
         TrustManager[] trustAllCerts = new TrustManager[]{
@@ -171,7 +129,6 @@ public class EspaceConnecte  extends AppCompatActivity {
         };
 
 
-
         try {
             SSLContext sslContext = SSLContext.getInstance("TLS");
             sslContext.init(null, trustAllCerts, new SecureRandom());
@@ -182,8 +139,17 @@ public class EspaceConnecte  extends AppCompatActivity {
                     .build();
 
 
+
+            // Créer un objet JSON contenant les données de la demande
+            JSONObject jsonBody = new JSONObject();
+            jsonBody.put("nomEntreprise", nomEntreprise); // Ajoutez le nom de l'entreprise
+
+
+            // Créer une demande HTTP POST avec le corps JSON
+            RequestBody body = RequestBody.create(jsonBody.toString(), MediaType.parse("application/json; charset=utf-8"));
             Request request = new Request.Builder()
-                    .url("https://192.168.1.27:8888/offre")
+                    .url("https://192.168.1.27:8888/offre_employe")
+                    .post(body)
                     .build();
 
 
@@ -203,26 +169,31 @@ public class EspaceConnecte  extends AppCompatActivity {
                         String responseData = response.body().string();
                         Log.d("TAG", "Réponse du serveur: " + responseData);
 
+                        // Analyser les données JSON de la réponse et créer des objets Annonce
                         List<Offre_emploi> offreEmplois = parseOffreFromJSON(responseData);
 
+                        // Mettre à jour l'interface utilisateur sur le thread UI principal
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 // Mettre à jour l'adaptateur de la ListView avec la nouvelle liste d'annonces
-                                OffreEmploiAdapter offreEmploiAdapter = new OffreEmploiAdapter(EspaceConnecte.this, offreEmplois);
-                                listViewOffre.setAdapter(offreEmploiAdapter);
+                                OffreEmploiAdaptateurEmploye offreEmploiAdaptateurEmploye = new OffreEmploiAdaptateurEmploye(ConsulterOffresActivity.this, offreEmplois);
+                                listViewOffre.setAdapter(offreEmploiAdaptateurEmploye);
                             }
                         });
                     } else {
-                        // Gérer les réponses non réussies
                         Log.d("TAG", "Réponse non réussie: " + response.code());
                     }
                 }
             });
         } catch (NoSuchAlgorithmException | KeyManagementException e) {
             e.printStackTrace();
+
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
         }
     }
+
 
     // Méthode pour analyser les données JSON et créer des objets Annonce
     private List<Offre_emploi> parseOffreFromJSON(String jsonData) {
@@ -251,14 +222,11 @@ public class EspaceConnecte  extends AppCompatActivity {
                 }
 
 
-
                 // Convertir la chaîne de caractères en objet Date
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
                 Date datePublication = sdf.parse(datePublicationStr);
 
 
-
-                // Si l'ID est null, vous pouvez choisir de ne pas ajouter cette offre à la liste
                 if (offreIdStr != null) {
                     ObjectId offreId = new ObjectId(offreIdStr);
                     long timestamp = datePublication.getTime();
@@ -283,23 +251,5 @@ public class EspaceConnecte  extends AppCompatActivity {
         return offreEmplois;
     }
 
-
-
-    private void ouvrirFormulaireCandidature(Offre_emploi offreEmploi, String nomUtilisateur, String prenomUtilisateur, String dateNaissanceUtilisateur, String offreId) {
-        Intent intent = new Intent(this, FormulaireCandidatureActivity.class);
-
-        // Ajoutez les informations de l'utilisateur à l'intent
-        intent.putExtra("nomUtilisateur", nomUtilisateur);
-        intent.putExtra("prenomUtilisateur", prenomUtilisateur);
-        intent.putExtra("dateNaissanceUtilisateur", dateNaissanceUtilisateur);
-        // Passer les informations sur l'offre d'emploi à l'activité du formulaire de candidature
-        intent.putExtra("offreEmploi", offreEmploi);
-        intent.putExtra("offreId", offreId);
-
-        // Démarrer l'activité du formulaire de candidature
-        startActivity(intent);
-    }
-
-
-
 }
+

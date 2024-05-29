@@ -69,6 +69,20 @@ public class inscription_employe extends AppCompatActivity {
         });
 
 
+        Button bouton_connexion = findViewById(R.id.connexion);
+        bouton_connexion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                Intent intent = new Intent(inscription_employe.this, connexion_employe.class);
+                startActivity(intent);
+            }
+        });
+
+
+
+
         Button bouton_creer_compte = findViewById(R.id.button_employe);
         bouton_creer_compte.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,8 +98,7 @@ public class inscription_employe extends AppCompatActivity {
                 // Enregistrer l'utilisateur dans la base de données (à implémenter)
                 enregistrerUtilisateur(NomEntreprise, Mail, NumTelephone, Adresse, LienPublic);
 
-                // Rediriger vers l'activité d'accueil avec les offres d'emploi
-                Intent intent = new Intent(inscription_employe.this, connexion.class);
+                Intent intent = new Intent(inscription_employe.this, connexion_employe.class);
                 startActivity(intent);
             }
         });
@@ -171,8 +184,9 @@ public class inscription_employe extends AppCompatActivity {
                         afficherMessage("Employe enregistré avec succès !");
                         // L'utilisateur a été enregistré avec succès
                         Log.d("Inscription", "Employe enregistré avec succès !");
-                        // Rediriger vers l'activité d'accueil avec les offres d'emploi
-                        Intent intent = new Intent(inscription_employe.this, Page_Accueil.class);
+                        afficherMessage("Employe enregistré avec succès !");
+
+                        Intent intent = new Intent(inscription_employe.this, connexion_employe.class);
                         startActivity(intent);
                     } else {
                         // Gérer les réponses non réussies

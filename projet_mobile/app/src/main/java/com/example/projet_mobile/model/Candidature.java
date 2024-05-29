@@ -6,7 +6,7 @@ import java.util.Date;
 
 public class Candidature implements Serializable {
 
-
+    private String id;
     private String nom;
     private String prenom;
     private String dateNaissance;
@@ -18,7 +18,8 @@ public class Candidature implements Serializable {
 
 
 
-    public Candidature(String nom, String prenom, String dateNaissance, String nationalite, String statut, Date dateCandidature, String metier) {
+    public Candidature(String id, String nom, String prenom, String dateNaissance, String nationalite, String statut, Date dateCandidature, String metier) {
+        this.id = id;
         this.nom = nom;
         this.prenom = prenom;
         this.dateNaissance = dateNaissance;
@@ -28,6 +29,15 @@ public class Candidature implements Serializable {
         this.metier = metier;
     }
 
+
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getNom() {
         return nom;
@@ -98,6 +108,7 @@ public class Candidature implements Serializable {
     @Override
     public String toString() {
         return "Candidature{" +
+                "id='" + id + '\'' +
                 "nom='" + nom + '\'' +
                 ", prenom='" + prenom + '\'' +
                 ", metier='" + metier + '\'' +

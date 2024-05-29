@@ -24,13 +24,13 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="16dp" />
 
-    <!-- Bouton de recherche -->
-    <Button
-        android:id="@+id/buttonRecherche"
-        android:layout_width="wrap_content"
+
+
+    <SearchView
+        android:id="@+id/searchView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Recherche"
-        android:layout_gravity="center_horizontal"
+        android:queryHint="Rechercher des annonces"
         android:layout_marginTop="16dp" />
 
 

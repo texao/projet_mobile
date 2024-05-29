@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -50,6 +51,20 @@ public class connexion extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.connexion);
 
+
+        // Récupérer la référence de l'ImageView pour le bouton de retour
+        ImageView imageViewBack = findViewById(R.id.imageViewBack);
+
+        // Ajouter un écouteur de clic à l'ImageView
+        imageViewBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Gérer le clic pour retourner à l'activité précédente
+                onBackPressed();
+            }
+        });
+
+
         Log.d("Tag", "page connexion ");
 
 
@@ -82,8 +97,7 @@ public class connexion extends AppCompatActivity {
                 String name = nom.getText().toString();
                 String email = mail.getText().toString();
 
-                // Envoyer les informations de connexion au serveur pour vérification
-                // Ici, vous pouvez appeler une méthode comme "authentifierUtilisateur(nom, email)" pour cela
+
                 authentification_utilisateur(name, email, nomUtilisateur, prenomUtilisateur, dateNaissanceUtilisateur);
             }
         });
@@ -148,7 +162,6 @@ public class connexion extends AppCompatActivity {
                             // Vérifier si l'authentification a réussi
                             boolean authentificationReussie = json.getBoolean("success");
                             if (authentificationReussie) {
-                                // Authentification réussie, rediriger vers la page d'accueil
                                 Intent intent = new Intent(connexion.this, EspaceConnecte.class);
                                 intent.putExtra("nomUtilisateur", json.getString("nom"));
                                 intent.putExtra("prenomUtilisateur", json.getString("prenom"));

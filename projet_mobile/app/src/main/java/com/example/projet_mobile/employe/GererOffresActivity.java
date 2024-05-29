@@ -1,4 +1,4 @@
-package com.example.projet_mobile.candidat;
+package com.example.projet_mobile.employe;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -7,16 +7,13 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.projet_mobile.R;
-import com.example.projet_mobile.employe.inscription_employe;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -39,34 +36,43 @@ import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+public class GererOffresActivity extends AppCompatActivity {
 
+    private EditText nom;
+    private EditText metier;
+    private EditText description;
+    private EditText periode;
 
-public class inscription extends AppCompatActivity {
+    private EditText remuneration;
+    private String nomEntreprise;
 
-
-    private RelativeLayout layoutInterim;
-    private RelativeLayout layoutEmploye;
-    private CheckBox checkBoxRechercheInterim;
-    private CheckBox checkBoxEmploye;
-
+    private String emailEntreprise;
 
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.inscription_interim);
+        setContentView(R.layout.activity_gerer_offres);
+
+
+
+        Intent intent = getIntent();
+        // Extraire le nom et l'email de l'intent
+         nomEntreprise = intent.getStringExtra("nomEntreprise");
+         emailEntreprise = intent.getStringExtra("emailEntreprise");
 
 
 
         // Récupérer les références des champs de saisie
-        EditText editTextNom = findViewById(R.id.editTextNom);
-        EditText editTextPrenom = findViewById(R.id.editTextPrenom);
-        EditText editTextEmail = findViewById(R.id.editTextEmail);
-        EditText editTextDateNaissance = findViewById(R.id.editTextDateNaissance);
+        nom = findViewById(R.id.editTextNom);
+        metier = findViewById(R.id.editTextMetier);
+        description = findViewById(R.id.editTextDescription);
+        periode = findViewById(R.id.editTextPeriode);
+        remuneration = findViewById(R.id.editTextRemuneration);
 
 
 
-        // Récupérer la référence de l'ImageView pour le bouton de retour
+
         ImageView imageViewBack = findViewById(R.id.imageViewBack);
 
         // Ajouter un écouteur de clic à l'ImageView
@@ -78,41 +84,38 @@ public class inscription extends AppCompatActivity {
             }
         });
 
-        Button bouton_creer_compte = findViewById(R.id.button_creer_compte);
-        bouton_creer_compte.setOnClickListener(new View.OnClickListener() {
+
+
+        Button boutonconnexion = findViewById(R.id.buttonEnvoyerOffre);
+        boutonconnexion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 // Récupérer les valeurs des champs de saisie
-                String nom = editTextNom.getText().toString();
-                String prenom = editTextPrenom.getText().toString();
-                String email = editTextEmail.getText().toString();
-                String dateNaissance = editTextDateNaissance.getText().toString();
-
-                // Enregistrer l'utilisateur dans la base de données
-                enregistrerUtilisateur(nom, prenom, email, dateNaissance);
-
-                // Rediriger vers l'activité d'accueil avec la page de connexion
-                Intent intent = new Intent(inscription.this, connexion.class);
-                intent.putExtra("nomUtilisateur", nom);
-                intent.putExtra("prenomUtilisateur", prenom);
-                intent.putExtra("dateNaissanceUtilisateur", dateNaissance);
+                String nomCompany = nom.getText().toString();
+                String metierCompany = metier.getText().toString();
+                String descriptionCompany = description.getText().toString();
+                String periodeCompany = periode.getText().toString();
+                int remunerationCompany = Integer.parseInt(remuneration.getText().toString());
 
 
-                Log.d("TAG", "page inscription, nom: " + nom);
-                startActivity(intent);
+                DepotOffre(nomCompany, metierCompany, descriptionCompany, periodeCompany, remunerationCompany);
+
+
             }
         });
 
 
 
-        Button bouton_employe = findViewById(R.id.buttonEmploye);
-        bouton_employe.setOnClickListener(new View.OnClickListener() {
+
+
+
+        Button buttonConsulterOffres = findViewById(R.id.buttonConsulterOffres);
+        buttonConsulterOffres.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                // Rediriger vers l'activité d'accueil avec les offres d'emploi
-                Intent intent = new Intent(inscription.this, inscription_employe.class);
+                // Rediriger vers l'activité de consultation des offres
+                Intent intent = new Intent(GererOffresActivity.this, ConsulterOffresActivity.class);
+                intent.putExtra("nomEntreprise", nomEntreprise);
                 startActivity(intent);
             }
         });
@@ -122,8 +125,7 @@ public class inscription extends AppCompatActivity {
 
 
 
-
-    private void enregistrerUtilisateur(String nom, String prenom, String email, String dateNaissance) {
+    private void DepotOffre(String nom, String metier, String description, String periode, int remuneration) {
 
 
         // Créer un gestionnaire de confiance qui ne valide pas les certificats
@@ -162,30 +164,34 @@ public class inscription extends AppCompatActivity {
             JSONObject jsonObject = new JSONObject();
             try {
                 jsonObject.put("nom", nom);
-                jsonObject.put("prenom", prenom);
-                jsonObject.put("email", email);
-                jsonObject.put("type", "Candidat");
-                jsonObject.put("dateNaissance", dateNaissance);
+                jsonObject.put("metier", metier);
+                jsonObject.put("description", description);
+                jsonObject.put("periode", periode);
+                jsonObject.put("remuneration", remuneration);
+                jsonObject.put("nomEntreprise", nomEntreprise);
+                jsonObject.put("emailEntreprise", emailEntreprise);
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
 
             // Créer une requête HTTP POST vers le serveur
-            String url = "https://192.168.1.27:8888/inscription";
+            String url = "https://192.168.1.27:8888/depotOffre";
             RequestBody body = RequestBody.create(jsonObject.toString(), MediaType.get("application/json"));
             okhttp3.Request request = new okhttp3.Request.Builder()
                     .url(url)
                     .post(body)
                     .build();
 
+            // Exécuter la requête de manière asynchrone
 
             client.newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
                     // Gérer les erreurs de requête
                     e.printStackTrace();
-                    Log.e("Inscription", "Erreur lors de l'enregistrement de l'utilisateur : " + e.getMessage());
+                    Log.e("Inscription", "Erreur lors de l'enregistrement de l'offre : " + e.getMessage());
                     afficherMessage("Erreur lors de l'enregistrement. Veuillez réessayer.");
 
                 }
@@ -194,14 +200,13 @@ public class inscription extends AppCompatActivity {
                 public void onResponse(Call call, Response response) throws IOException {
                     if (response.isSuccessful()) {
                         afficherMessage("Utilisateur enregistré avec succès !");
-                        // L'utilisateur a été enregistré avec succès
-                        Log.d("Inscription", "Utilisateur enregistré avec succès !");
-                        // Rediriger vers l'activité d'accueil avec les offres d'emploi
-                        Intent intent = new Intent(inscription.this, connexion.class);
-                        startActivity(intent);
+
+                        afficherMessage("Offre d'emploi enregistrée avec succès !");
+                        Log.d("DepotOffre", "Offre d'emploi enregistrée avec succès !");
+
                     } else {
                         // Gérer les réponses non réussies
-                        Log.e("Inscription", "Erreur lors de l'enregistrement de l'utilisateur : " + response.code());
+                        Log.e("DepotOffre", "Erreur lors de l'enregistrement de l'offre : " + response.code());
                         afficherMessage("Erreur lors de l'enregistrement. Veuillez réessayer.");
                     }
                 }
@@ -217,28 +222,17 @@ public class inscription extends AppCompatActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(inscription.this, message, Toast.LENGTH_SHORT).show();
+                Toast.makeText(GererOffresActivity.this, message, Toast.LENGTH_SHORT).show();
             }
         });
     }
 
 
 
-    // Gérer le clic sur le bouton de retour en arrière dans l'actionBar
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                // Retourner à l'activité précédente (connexion)
-                onBackPressed();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
 
 
 }
+
 
 
 

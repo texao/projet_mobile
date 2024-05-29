@@ -6,6 +6,7 @@
     import android.view.View;
     import android.widget.Button;
     import android.widget.ListView;
+    import android.widget.SearchView;
 
     import androidx.appcompat.app.AppCompatActivity;
 
@@ -38,6 +39,10 @@
 
     public class Page_Accueil  extends AppCompatActivity {
         private ListView listViewAnnonces;
+        private AnnoncesAdapter annoncesAdapter;
+        private SearchView searchView;
+        private List<Annonce> listeannonces = new ArrayList<>();
+
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -46,12 +51,22 @@
 
             listViewAnnonces = findViewById(R.id.listViewAnnonces); // Initialisation de listViewAnnonces
             Log.d("Tag", "page acueil");
+            searchView = findViewById(R.id.searchView);
+
+            if (searchView == null) {
+                Log.e("Page_Accueil", "SearchView not found in layout!");
+            } else {
+                Log.d("Page_Accueil", "SearchView initialized successfully.");
+            }
+
+
+
 
             // Récupérer les annonces à partir du serveur
             getAnnoncesFromServer();
 
             Button bouton_connexion = findViewById(R.id.buttonConnexion);
-            bouton_connexion.setOnClickListener (new View.OnClickListener() {
+            bouton_connexion.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     // Lorsque le bouton de connexion est cliqué, démarrer l'activité de connexion
@@ -62,6 +77,7 @@
 
 
         }
+
 
 
         public void getAnnoncesFromServer() {
@@ -85,8 +101,6 @@
             };
 
 
-
-
             try {
                 SSLContext sslContext = SSLContext.getInstance("TLS");
                 sslContext.init(null, trustAllCerts, new SecureRandom());
@@ -100,7 +114,6 @@
                 Request request = new Request.Builder()
                         .url("https://192.168.1.27:8888/annonces")
                         .build();
-
 
 
                 client.newCall(request).enqueue(new Callback() {
@@ -118,16 +131,39 @@
                             String responseData = response.body().string();
                             Log.d("TAG", "Réponse du serveur: " + responseData);
 
-                            // Analyser les données JSON de la réponse et créer des objets Annonce
                             List<Annonce> annonces = parseAnnoncesFromJSON(responseData);
 
-                            // Mettre à jour l'interface utilisateur sur le thread UI principal
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    // Mettre à jour l'adaptateur de la ListView avec la nouvelle liste d'annonces
-                                    AnnoncesAdapter annoncesAdapter = new AnnoncesAdapter(Page_Accueil.this, annonces);
+                                    annoncesAdapter = new AnnoncesAdapter(Page_Accueil.this, annonces);
                                     listViewAnnonces.setAdapter(annoncesAdapter);
+
+                                    if (searchView == null) {
+                                        Log.e("Page_Accueil", "SearchView is still null in runOnUiThread!");
+                                    } else {
+                                        Log.d("Page_Accueil", "SearchView is ready to be used.");
+
+                                    }
+
+                                    // Mettre en place le filtre de recherche maintenant que l'adaptateur est initialisé
+                                    searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                                        @Override
+                                        public boolean onQueryTextSubmit(String query) {
+                                            return false;
+                                        }
+
+                                        @Override
+                                        public boolean onQueryTextChange(String newText) {
+                                            if (annoncesAdapter != null) {
+                                                filterAnnonces(newText);
+
+                                            }
+                                            return false;
+                                        }
+                                    });
+
+
                                 }
                             });
                         } else {
@@ -140,6 +176,7 @@
                 e.printStackTrace();
             }
         }
+
 
         // Méthode pour analyser les données JSON et créer des objets Annonce
         private List<Annonce> parseAnnoncesFromJSON(String jsonData) {
@@ -164,6 +201,40 @@
                 e.printStackTrace();
             }
 
+            // Mettre à jour la liste listeCandidatures avec les nouvelles candidatures
+            listeannonces.clear(); // Vider la liste actuelle
+            listeannonces.addAll(annonces); // Ajouter toutes les nouvelles candidatures
+
+
+
             return annonces;
         }
+
+
+
+
+
+        private void filterAnnonces(String titre) {
+            // Créer une liste pour stocker les annonces filtrées
+            List<Annonce> filteredList = new ArrayList<>();
+
+            if (titre.isEmpty()) {
+                // Si le champ de recherche est vide, afficher toutes les annonces
+                filteredList.addAll(listeannonces);
+            } else {
+                // Parcourir toutes les annonces
+                for (Annonce annonce : listeannonces) {
+                    if (annonce.getTitre().toLowerCase().contains(titre.toLowerCase())) {
+                        // Vérifier si le métier de l'annonce contient le critère de recherche
+                        filteredList.add(annonce);
+                    }
+                }
+            }
+        //   Créer un nouvel adaptateur avec les annonces filtrées
+            AnnoncesAdapter filteredAdapter = new AnnoncesAdapter(Page_Accueil.this, filteredList);
+            listViewAnnonces.setAdapter(filteredAdapter);
+        }
+
+
+
     }

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="#f5f5f5">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <!-- Icône de retour -->
+        <ImageView
+            android:id="@+id/imageViewBack"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/retour_arriere"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:clickable="true" />
+
+
+
+        <!-- Titre de la page -->
+        <TextView
+            android:id="@+id/textViewTitleGererOffres"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Déposer une Candidature"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="24dp"
+            android:padding="16dp" />
+
+        <!-- Champ pour le nom -->
+        <EditText
+            android:id="@+id/editTextNom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nom"
+            android:layout_below="@id/textViewTitleGererOffres"
+            android:layout_marginTop="24dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp" />
+
+        <!-- Champ pour le métier -->
+        <EditText
+            android:id="@+id/editTextMetier"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Métier"
+            android:layout_below="@id/editTextNom"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp" />
+
+        <!-- Champ pour la description -->
+        <EditText
+            android:id="@+id/editTextDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Description"
+            android:inputType="textMultiLine"
+            android:minLines="3"
+            android:layout_below="@id/editTextMetier"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp" />
+
+        <!-- Champ pour la période -->
+        <EditText
+            android:id="@+id/editTextPeriode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Période"
+            android:layout_below="@id/editTextDescription"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp" />
+
+        <!-- Champ pour la rémunération -->
+        <EditText
+            android:id="@+id/editTextRemuneration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Rémunération"
+            android:inputType="numberDecimal"
+            android:layout_below="@id/editTextPeriode"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp" />
+
+        <!-- Bouton pour envoyer la candidature -->
+        <Button
+            android:id="@+id/buttonEnvoyerOffre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Envoyer Candidature"
+            android:layout_below="@id/editTextRemuneration"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="24dp"
+            android:background="@color/colorPrimary"
+            android:textColor="@android:color/white"
+            android:padding="16dp" />
+
+        <!-- Bouton pour consulter les offres -->
+        <Button
+            android:id="@+id/buttonConsulterOffres"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Consulter Offres"
+            android:layout_below="@id/buttonEnvoyerOffre"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="24dp"
+            android:background="@color/colorAccent"
+            android:textColor="@android:color/white"
+            android:padding="16dp" />
+
+    </RelativeLayout>
+</ScrollView>

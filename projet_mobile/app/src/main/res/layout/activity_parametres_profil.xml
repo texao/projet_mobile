@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="#F5F5F5"> <!-- Background color for the whole layout -->
+
+
+
+
+    <!-- Icône de retour -->
+    <ImageView
+        android:id="@+id/imageViewBack"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:src="@drawable/retour_arriere"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:clickable="true" />
+
+
+    <!-- Titre "Profil" -->
+    <TextView
+        android:id="@+id/textViewProfil"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Profil"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:textColor="#333333"/> <!-- Title text color -->
+
+    <!-- Layout pour les informations utilisateur -->
+    <LinearLayout
+        android:id="@+id/layoutInfos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/textViewProfil"
+        android:layout_marginTop="32dp">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            card_view:cardCornerRadius="8dp"
+            card_view:cardElevation="4dp"
+            android:background="@color/white">
+
+            <TextView
+                android:id="@+id/textViewNom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nom :"
+                android:textSize="20sp"
+                android:padding="16dp"
+                android:textColor="#333333"/> <!-- Text color -->
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            card_view:cardCornerRadius="8dp"
+            card_view:cardElevation="4dp"
+            android:background="@color/white">
+
+            <TextView
+                android:id="@+id/textViewPrenom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Prénom :"
+                android:textSize="20sp"
+                android:padding="16dp"
+                android:textColor="#333333"/> <!-- Text color -->
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            card_view:cardCornerRadius="8dp"
+            card_view:cardElevation="4dp"
+            android:background="@color/white">
+
+            <TextView
+                android:id="@+id/datenaissance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Date de naissance :"
+                android:textSize="20sp"
+                android:padding="16dp"
+                android:textColor="#333333"/> <!-- Text color -->
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
+</RelativeLayout>

@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -48,12 +49,28 @@ public class FormulaireCandidatureActivity extends AppCompatActivity {
     String dateNaissanceUtilisateur;
     private String offreId;
 
+    private String offreNom;
+
     private String metier;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formulaire_candidature);
+
+
+        // Récupérer la référence de l'ImageView pour le bouton de retour
+        ImageView imageViewBack = findViewById(R.id.imageViewBack);
+
+        // Ajouter un écouteur de clic à l'ImageView
+        imageViewBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Gérer le clic pour retourner à l'activité précédente
+                onBackPressed();
+            }
+        });
+
 
 
         // Récupérer les données de l'offre d'emploi de l'intent
@@ -69,6 +86,7 @@ public class FormulaireCandidatureActivity extends AppCompatActivity {
         if (intent != null && intent.hasExtra("offreEmploi")) {
             offreEmploi = (Offre_emploi) intent.getSerializableExtra("offreEmploi");
             offreId = offreEmploi.getId();
+            offreNom = offreEmploi.getNom();
             metier = offreEmploi.getMetier();// Récupérer l'ID de l'offre
             Log.d("FormulaireCandidature", "FormulaireCandidature ID de l'offre extrait avec succès: " + offreId);
         } else {
@@ -169,6 +187,8 @@ public class FormulaireCandidatureActivity extends AppCompatActivity {
                     .build();
 
 
+
+
             // Créer un objet JSON contenant les données de l'utilisateur
             JSONObject jsonObject = new JSONObject();
             try {
@@ -179,7 +199,7 @@ public class FormulaireCandidatureActivity extends AppCompatActivity {
                 jsonObject.put("cv", cv);
                 jsonObject.put("Statut", "En attente");
                 jsonObject.put("dateCandidature", getCurrentDateTime());
-                jsonObject.put("offreId", offreId);
+                jsonObject.put("offreNom", offreNom);
                 jsonObject.put("metier", metier);
 
             } catch (JSONException e) {
@@ -187,7 +207,6 @@ public class FormulaireCandidatureActivity extends AppCompatActivity {
             }
 
 
-            // Créer une requête HTTP POST vers le serveur
             String url = "https://192.168.1.27:8888/candidature";
             RequestBody body = RequestBody.create(jsonObject.toString(), MediaType.get("application/json"));
             okhttp3.Request request = new okhttp3.Request.Builder()
@@ -195,7 +214,6 @@ public class FormulaireCandidatureActivity extends AppCompatActivity {
                     .post(body)
                     .build();
 
-            // Exécuter la requête de manière asynchrone
 
             client.newCall(request).enqueue(new Callback() {
                 @Override
@@ -214,7 +232,7 @@ public class FormulaireCandidatureActivity extends AppCompatActivity {
                         afficherMessage("candidature enregistré avec succès !");
                         // L'utilisateur a été enregistré avec succès
                         Log.d("Inscription", "Employe enregistré avec succès !");
-                        // Rediriger vers l'activité d'accueil avec les offres d'emploi
+
                         Intent intent = new Intent(FormulaireCandidatureActivity.this, EspaceConnecte.class);
                         startActivity(intent);
                     } else {
@@ -246,7 +264,7 @@ public class FormulaireCandidatureActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                // Retourner à l'activité précédente (connexion)
+                // Retourner à l'activité précédente
                 onBackPressed();
                 return true;
             default:

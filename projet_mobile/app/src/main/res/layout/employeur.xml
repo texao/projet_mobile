@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+    <!-- Titre de la page -->
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Espace employeur"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:padding="16dp" />
+
+    <!-- Bouton Gérer Offres -->
+    <Button
+        android:id="@+id/buttonGererOffres"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Gérer offres"
+        android:layout_below="@id/textViewTitle"
+        android:layout_marginTop="32dp"
+        android:background="@color/colorPrimary"
+        android:textColor="@android:color/white"
+        android:padding="16dp" />
+
+    <!-- Bouton Candidature non traitées -->
+    <Button
+        android:id="@+id/buttonCandidatureNonTraitees"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Candidature non traitées"
+        android:layout_below="@id/buttonGererOffres"
+        android:layout_marginTop="16dp"
+        android:background="@color/colorAccent"
+        android:textColor="@android:color/white"
+        android:padding="16dp" />
+
+    <!-- Bouton Candidature acceptées -->
+    <Button
+        android:id="@+id/buttonCandidatureAcceptees"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Candidature acceptées"
+        android:layout_below="@id/buttonCandidatureNonTraitees"
+        android:layout_marginTop="16dp"
+        android:background="@color/colorPrimaryDark"
+        android:textColor="@android:color/white"
+        android:padding="16dp" />
+
+
+
+
+</RelativeLayout>
+
+

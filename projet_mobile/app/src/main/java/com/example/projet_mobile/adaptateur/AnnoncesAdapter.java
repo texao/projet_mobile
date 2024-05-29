@@ -1,19 +1,25 @@
 package com.example.projet_mobile.adaptateur;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import com.example.projet_mobile.R;
 import com.example.projet_mobile.model.Annonce;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class AnnoncesAdapter extends ArrayAdapter<Annonce> {
+public class AnnoncesAdapter extends ArrayAdapter<Annonce>  implements Filterable {
 
     private LayoutInflater inflater;
+    private List<Annonce> annonces;
+    private List<Annonce> annoncesFiltered;
 
     public AnnoncesAdapter(Context context, List<Annonce> annonces) {
         super(context, 0, annonces);
@@ -42,4 +48,15 @@ public class AnnoncesAdapter extends ArrayAdapter<Annonce> {
 
         return view;
     }
+
+
+
+
 }
+
+
+
+
+
+
+

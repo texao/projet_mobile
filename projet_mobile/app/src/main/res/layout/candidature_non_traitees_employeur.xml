@@ -33,16 +33,6 @@
 
 
 
-    <EditText
-        android:id="@+id/editTextMetier"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Saisir un métier"
-        android:inputType="text"
-        android:layout_marginTop="16dp"
-        android:layout_marginHorizontal="16dp"/>
-
-
 
     <ListView
         android:id="@+id/listViewcandidature"

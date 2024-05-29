@@ -7,18 +7,11 @@
     android:layout_marginBottom="0dp">
 
     <TextView
-        android:id="@+id/nom"
+        android:id="@+id/nomEntreprise"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="18sp"
         android:textStyle="bold"/>
-
-    <TextView
-        android:id="@+id/prenom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"/>
-
 
     <TextView
         android:id="@+id/metier"
@@ -26,56 +19,35 @@
         android:layout_height="wrap_content"
         android:textSize="16sp"/>
 
+    <TextView
+        android:id="@+id/desciption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"/>
 
     <TextView
-        android:id="@+id/datenaissance"
+        android:id="@+id/periode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="16sp"/>
 
 
     <TextView
-        android:id="@+id/nationalite"
+        android:id="@+id/remuneration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="16sp"/>
 
     <TextView
-        android:id="@+id/status"
+        android:id="@+id/datePublication"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="16sp"/>
 
-
-    <TextView
-        android:id="@+id/datCandidature"
+    <Button
+        android:id="@+id/btnSupprimer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="16sp"/>
-
-
-    <!-- Boutons d'action -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="end"
-        android:layout_marginTop="8dp">
-
-        <Button
-            android:id="@+id/btnAccepter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Accepter" />
-
-        <Button
-            android:id="@+id/btnRefuser"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Refuser"
-            android:layout_marginStart="8dp" />
-
-    </LinearLayout>
-
+        android:text="Supprimer" />
 
 </LinearLayout>

@@ -46,6 +46,29 @@
         <activity
             android:name=".candidat.AfficherCandidaturesActivity"
             android:exported="true"/>
+        <activity
+            android:name=".employe.connexion_employe"
+            android:exported="true"/>
+        <activity
+            android:name=".employe.CandidatureAccepteesActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".employe.CandidatureNonTraiteesActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".employe.GererOffresActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".employe.Employeur"
+            android:exported="true"/>
+        <activity
+            android:name=".employe.ConsulterOffresActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".candidat.ParametresProfilActivity"
+            android:exported="true"/>
+
+
 
 
 
